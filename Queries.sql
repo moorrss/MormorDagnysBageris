@@ -30,7 +30,7 @@ Purchases.Date,
 Suppliers.Name AS 'Leverantör',
 Ingredients.Name AS 'Ingridiens',
 PurchaseLines.StockQuantity || ' kg' AS 'Antal',
-PurchaseLine.PurchasesPrice AS 'Pris'
+PurchaseLines.PurchasesPrice AS 'Pris'
 FROM Purchases INNER JOIN PurchaseLines ON
 Purchases.Id = PurchaseLines.PurchaseId INNER JOIN Suppliers
 ON Purchases.SupplierId = Suppliers.SupplierId INNER JOIN Ingredients
