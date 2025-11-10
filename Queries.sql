@@ -28,3 +28,11 @@ FROM
     INNER JOIN PurchaseLines ON Purchases.Id = PurchaseLines.PurchaseId
     INNER JOIN Suppliers ON Purchases.SupplierId = Suppliers.Id
     INNER JOIN Ingredients ON PurchaseLines.IngredientId = Ingredients.Id;
+
+SELECT Suppliers.Name AS 'Leverantör', Contacts.FirstName || ' ' || Contacts.LastName AS 'Kontaktperson', Addresses.AddressLine AS 'Gatuadress', PostalCodes.PostalCode AS 'Postnummer', Cities.City AS 'Stad'
+FROM
+    suppliers
+    LEFT JOIN contacts ON suppliers.Id = contacts.SupplierId
+    LEFT JOIN addresses ON suppliers.AddressId = addresses.Id
+    LEFT JOIN postalcodes ON addresses.PostalCodeId = postalcodes.Id
+    LEFT JOIN cities ON postalcodes.CityId = cities.Id;
