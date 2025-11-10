@@ -65,7 +65,8 @@ DROP TABLE IF EXISTS Addresses;
 CREATE TABLE Addresses (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     AddressLine VARCHAR(40) NOT NULL,
-    PostalCodeId INTEGER NOT NULL
+    PostalCodeId INTEGER NOT NULL,
+    FOREIGN KEY (PostalCodeId) REFERENCES PostalCodes (Id)
 );
 
 DROP TABLE IF EXISTS Ingredients;
