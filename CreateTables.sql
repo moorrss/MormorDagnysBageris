@@ -1,11 +1,43 @@
 DROP TABLE IF EXISTS Suppliers;
 
 CREATE TABLE Suppliers (
-    SupplierId INTEGER PRIMARY KEY AUTOINCREMENT,
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Name VARCHAR(100) NOT NULL,
-    ContactPerson VARCHAR(100),
-    Phone VARCHAR(20),
-    Email VARCHAR(100) UNIQUE
+);
+
+DROP TABLE IF EXISTS Contacts;
+
+CREATE TABLE Contacts (
+    Id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    SupplierId INTEGER NOT NULL,
+    FirstName VARCHAR(40) NOT NULL,
+    LastName VARCHAR(60) NOT NULL,
+    FOREIGN KEY (SupplierId) REFERENCES Suppliers (Id)
+);
+
+DROP TABLE IF EXISTS EmailAddresses (
+    Id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    Email VARCHAR(80) NOT NULL UNIQUE
+);
+
+DROP TABLE IF EXISTS SuppliersEmail;
+
+CREATE TABLE SuppliersEmail (
+    SupplierId INTEGER,
+    EmailId INTEGER,
+    PRIMARY KEY (SupplierId, EmailId),
+    FOREIGN KEY (SupplierId) REFERENCES Suppliers (Id),
+    FOREIGN KEY (EmailId) REFERENCES EmailAddresses (Id)
+);
+
+DROP TABLE IF EXISTS ContactsEmail;
+
+CREATE TABLE ContactsEmail (
+    ContactId INTEGER,
+    EmailId INTEGER,
+    PRIMARY KEY (ContactId, EmailId),
+    FOREIGN KEY (ContactId) REFERENCES Contacts (Id),
+    FOREIGN KEY (EmailId) REFERENCES EmailAddresses (Id)
 );
 
 DROP TABLE IF EXISTS Cities;
@@ -35,7 +67,7 @@ CREATE TABLE Addresses (
 DROP TABLE IF EXISTS Ingredients;
 
 CREATE TABLE Ingredients (
-    IngredientId INTEGER PRIMARY KEY AUTOINCREMENT,
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
     ItemNumber VARCHAR(20) NOT NULL UNIQUE,
     Name VARCHAR(100) NOT NULL,
     PricePerKg DECIMAL NOT NULL,
@@ -45,7 +77,7 @@ CREATE TABLE Ingredients (
 DROP TABLE IF EXISTS Products;
 
 CREATE TABLE Products (
-    ProductId INTEGER PRIMARY KEY AUTOINCREMENT,
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Name VARCHAR(100) NOT NULL UNIQUE
 );
 
@@ -55,8 +87,8 @@ CREATE TABLE SupplierCatalog (
     SupplierId INTEGER,
     IngredientId INTEGER,
     PRIMARY KEY (SupplierId, IngredientId),
-    FOREIGN KEY (SupplierId) REFERENCES Suppliers (SupplierId) ON DELETE CASCADE,
-    FOREIGN KEY (IngredientId) REFERENCES Ingredients (IngredientId) ON DELETE CASCADE
+    FOREIGN KEY (SupplierId) REFERENCES Suppliers (Id) ON DELETE CASCADE,
+    FOREIGN KEY (IngredientId) REFERENCES Ingredients (Id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS RecipeIngredients;
@@ -66,8 +98,8 @@ CREATE TABLE RecipeIngredients (
     IngredientId INTEGER,
     StockQuantity DECIMAL NOT NULL,
     PRIMARY KEY (ProductId, IngredientId),
-    FOREIGN KEY (ProductId) REFERENCES Products (ProductId) ON DELETE CASCADE,
-    FOREIGN KEY (IngredientId) REFERENCES Ingredients (IngredientId) ON DELETE CASCADE
+    FOREIGN KEY (ProductId) REFERENCES Products (Id) ON DELETE CASCADE,
+    FOREIGN KEY (IngredientId) REFERENCES Ingredients (Id) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS Purchases;
@@ -76,7 +108,7 @@ CREATE TABLE Purchases (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     SupplierId INTEGER NOT NULL,
     Date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (SupplierId) REFERENCES Suppliers (SupplierId)
+    FOREIGN KEY (SupplierId) REFERENCES Suppliers (Id)
 );
 
 DROP TABLE IF EXISTS PurchaseLines;
@@ -88,5 +120,32 @@ CREATE TABLE PurchaseLines (
     PurchasesPrice DECIMAL NOT NULL,
     PRIMARY KEY (PurchaseId, IngredientId),
     FOREIGN KEY (PurchaseId) REFERENCES Purchases (Id) ON DELETE CASCADE,
-    FOREIGN KEY (IngredientId) REFERENCES Ingredients (IngredientId)
+    FOREIGN KEY (IngredientId) REFERENCES Ingredients (Id)
+);
+
+DROP TABLE IF EXISTS PhoneNumbers;
+
+CREATE TABLE PhoneNumbers (
+    Id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    PhoneNumber VARCHAR(25) NOT NULL UNIQUE,
+);
+
+DROP TABLE IF EXISTS SuppliersPhone;
+
+CREATE TABLE SuppliersPhone (
+    SupplierId INTEGER,
+    PhoneId INTEGER,
+    PRIMARY KEY (SupplierId, PhoneId),
+    FOREIGN KEY (SupplerId) REFERENCES Suppliers (Id),
+    FOREIGN KEY (PhoneId) REFERENCES PhoneNumbers (Id)
+);
+
+DROP TABLE IF EXISTS ContactsPhones;
+
+CREATE TABLE ContactsPhone (
+    ContactId INTEGER,
+    PhoneId INTEGER,
+    PRIMARY KEY (ContactId, PhoneId),
+    FOREIGN KEY (ContactId) REFERENCES Contacts (Id),
+    FOREIGN KEY (PhoneId) REFERENCES PhoneNumbers (Id)
 );
