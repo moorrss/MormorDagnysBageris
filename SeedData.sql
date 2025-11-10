@@ -1,28 +1,8 @@
 INSERT INTO
-    Suppliers (
-        Name,
-        ContactPerson,
-        Phone,
-        Email
-    )
-VALUES (
-        'Kvarnen AB',
-        'Gunde Kvarn',
-        '010-123456',
-        'GundeKvarn@live.se'
-    ),
-    (
-        'Socker AB',
-        'Gunhild Gransson',
-        '020-654321',
-        'gunhildgra@live.se'
-    ),
-    (
-        'Fruk och Bär',
-        'Lisa Svan',
-        '010-987654',
-        'lisasvan@live.se'
-    );
+    Suppliers (Name)
+VALUES ('Kvarnen AB'),
+    ('Socker AB'),
+    ('Fruk och Bär');
 
 INSERT INTO
     Ingredients (
@@ -74,6 +54,52 @@ VALUES ('Kanelbulle'),
     ('Kardemummabulle'),
     ('Surdegslimpa'),
     ('Äppelkaka');
+
+INSERT INTO
+    Contacts (
+        SupplierId,
+        FirstName,
+        LastName
+    )
+VALUES (1, 'Gunde', 'Kvarn'),
+    (2, 'Gunhild', 'Gransson'),
+    (3, 'Lisa', 'Svan');
+
+INSERT INTO
+    EmailAddresses (Email)
+VALUES ('GundeKvarn@live.se'),
+    ('gunhildgra@live.se'),
+    ('lisasvan@live.se');
+
+INSERT INTO
+    PhoneNumbers (PhoneNumber)
+VALUES ('010-123456'),
+    ('020-654321'),
+    ('010-987654');
+
+INSERT INTO
+    SuppliersEmail (SupplierId, EmailId)
+VALUES (1, 1),
+    (2, 2),
+    (3, 3);
+
+INSERT INTO
+    SuppliersPhone (SupplierId, PhoneId)
+VALUES (1, 1),
+    (2, 2),
+    (3, 3);
+
+INSERT INTO
+    ContactsEmail (ContactId, EmailId)
+VALUES (1, 1),
+    (2, 2),
+    (3, 3);
+
+INSERT INTO
+    ContactsPhone (ContactId, PhoneId)
+VALUES (1, 1),
+    (2, 2),
+    (3, 3);
 
 INSERT INTO
     SupplierCatalog (SupplierId, IngredientId)
