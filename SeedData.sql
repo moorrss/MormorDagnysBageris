@@ -141,3 +141,27 @@ INSERT INTO
     )
 VALUES (1, 1, 50.0, 10.25),
     (1, 5, 25.0, 12.00);
+
+INSERT INTO
+    Cities (City)
+VALUES ('Kvarnstad'),
+    ('Grannstad'),
+    ('Malmö');
+
+INSERT INTO
+    PostalCodes (PostalCode, CityId)
+VALUES ('12345', 1),
+    ('54321', 2),
+    ('21122', 3);
+
+INSERT INTO
+    Addresses (AddressLine, PostalCodeId)
+VALUES ('KvarnGatan 1', 1),
+    ('Granstigen 3', 2),
+    ('Storbackagatan 2', 3);
+
+UPDATE Suppliers SET AddressId = 1 WHERE Id = 1;
+
+UPDATE Suppliers SET AddressId = 2 WHERE Id = 2;
+
+UPDATE Suppliers SET AddressId = 3 WHERE Id = 3;
