@@ -136,7 +136,7 @@ CREATE TABLE SuppliersPhone (
     SupplierId INTEGER,
     PhoneId INTEGER,
     PRIMARY KEY (SupplierId, PhoneId),
-    FOREIGN KEY (SupplerId) REFERENCES Suppliers (Id),
+    FOREIGN KEY (SupplierId) REFERENCES Suppliers (Id),
     FOREIGN KEY (PhoneId) REFERENCES PhoneNumbers (Id)
 );
 
